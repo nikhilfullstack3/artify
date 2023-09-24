@@ -88,7 +88,7 @@ body {
 
 .full-image-content {
   background: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -96,7 +96,7 @@ body {
 
 #full-image {
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 60vh;
 }
 
 #image-description,
@@ -241,6 +241,9 @@ h1 {
 
   .navbar li {
     margin: 5px;
+  }
+  #image-description {
+    font-size: 10px;
   }
 }
 
