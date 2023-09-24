@@ -27,7 +27,7 @@ export const updateImages = async (category) => {
   }
 };
 
-navbar.addEventListener("click", async (event) => {
+navbar.addEventListener("click", (event) => {
   if (event.target.tagName === "A") {
     const category = event.target.getAttribute("data-category");
 
@@ -38,10 +38,14 @@ navbar.addEventListener("click", async (event) => {
       event.target.classList.add("selected");
       selectedCategory = category;
 
-      updateImages(selectedCategory);
+      updateImages(category);
     }
   }
 });
+
+navbar
+  .querySelector(`[data-category="${selectedCategory}"]`)
+  .classList.add("selected");
 
 const showFullImage = (imageData) => {
   const fullImageContainer = document.getElementById("full-image-container");
@@ -83,17 +87,15 @@ imageContainer.addEventListener("click", async (e) => {
   }
 });
 
-const favoritesTab = document.getElementById("favorites-tab");
-favoritesTab.addEventListener("click", () => {
-  selectedCategory = "favorites";
-  navbar.querySelector(".selected")?.classList.remove("selected");
-  favoritesTab.classList.add("selected");
-  updateImages("favorites");
-});
-
 const logo = document.querySelector(".navbar-logo");
 logo.addEventListener("click", function () {
-  const selectedCategory = "classic art";
+  navbar
+    .querySelector(`[data-category="${selectedCategory}"]`)
+    .classList.remove("selected");
+  selectedCategory = "classic art";
+  navbar
+    .querySelector(`[data-category="${selectedCategory}"]`)
+    .classList.add("selected");
   updateImages(selectedCategory);
 });
 

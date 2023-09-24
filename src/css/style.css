@@ -49,31 +49,25 @@ body {
 }
 
 .navbar a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.navbar a:hover {
-  color: rgb(167, 165, 197);
-  position: relative;
-  z-index: 1;
-}
-
-.navbar a:hover::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #b3e0ff, #ffffff);
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #608cdf;
+  color: #fff;
+  border: none;
   border-radius: 5px;
-  z-index: -1;
-  opacity: 0.8;
-  transition: opacity 0.3s;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
 }
+
+.navbar a.selected {
+  color: rgb(167, 165, 197);
+
+  z-index: -1;
+  background: linear-gradient(45deg, #b3e0ff, #ffffff);
+  opacity: 0.8;
+}
+
 .gallery {
   text-align: center;
   padding: 20px;
