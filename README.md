@@ -12,6 +12,7 @@ Artify is a beautiful and user-friendly image gallery website where you can expl
 
 Artify is built using HTML, CSS, and JavaScript. You can clone the repository and run it locally for development purposes.
 
+**_check website demo at(http://stupendous-door.surge.sh/#)_**
 **_INSTRUCTIONS_**
 
 Clone the App and run "npm install"
