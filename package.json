@@ -17,7 +17,6 @@
     "workerDirectory": "src/public"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
     "unsplash-js": "^7.0.18"
   }
 }
