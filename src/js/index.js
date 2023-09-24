@@ -1,0 +1,124 @@
+import { fetchImagesFromCollection } from "./api.js";
+import { getFavorites } from "./favorites.js";
+import { renderImages } from "./gallery.js";
+
+const sortByRatingButton = document.getElementById("sort-by-rating");
+const sortByTimestampButton = document.getElementById("sort-by-timestamp");
+
+const navbar = document.querySelector(".navbar");
+const imageContainer = document.getElementById("image-container");
+
+const categoryTitle = document.getElementById("category-title");
+
+let selectedCategory = "classic art";
+
+export const updateImages = async (category) => {
+  categoryTitle.innerHTML = category.toUpperCase();
+  try {
+    if (category === "favorites") {
+      const favoriteImages = getFavorites();
+      renderImages(favoriteImages, imageContainer, category);
+    } else {
+      const images = await fetchImagesFromCollection(category);
+      renderImages(images, imageContainer, category);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+navbar.addEventListener("click", async (event) => {
+  if (event.target.tagName === "A") {
+    const category = event.target.getAttribute("data-category");
+
+    if (category !== selectedCategory) {
+      navbar
+        .querySelector(`[data-category="${selectedCategory}"]`)
+        .classList.remove("selected");
+      event.target.classList.add("selected");
+      selectedCategory = category;
+
+      updateImages(selectedCategory);
+    }
+  }
+});
+
+const showFullImage = (imageData) => {
+  const fullImageContainer = document.getElementById("full-image-container");
+  const fullImage = document.getElementById("full-image");
+  const imageDescription = document.getElementById("image-description");
+  const imageUsername = document.getElementById("image-username");
+
+  fullImage.src = imageData.urls.full;
+  fullImage.alt = imageData.alt_description;
+  imageDescription.textContent =
+    imageData.description || imageData.alt_description;
+  imageUsername.textContent = `Posted By :${imageData.user.name}` || "Unknown";
+
+  fullImageContainer.style.display = "block";
+};
+
+const hideFullImage = () => {
+  const fullImageContainer = document.getElementById("full-image-container");
+  fullImageContainer.style.display = "none";
+};
+
+const closeButton = document.getElementById("close-button");
+closeButton.addEventListener("click", hideFullImage);
+
+imageContainer.addEventListener("click", async (e) => {
+  const clickedImage = e.target.closest(".image");
+  if (clickedImage) {
+    const imageId = clickedImage.getAttribute("data-id");
+    const imageCat = clickedImage.getAttribute("data-category");
+    console.log(imageCat);
+
+    const storedImages = JSON.parse(localStorage.getItem(imageCat));
+    if (storedImages) {
+      const imageData = storedImages.find((image) => image.id === imageId);
+      if (imageData) {
+        showFullImage(imageData);
+      }
+    }
+  }
+});
+
+const favoritesTab = document.getElementById("favorites-tab");
+favoritesTab.addEventListener("click", () => {
+  selectedCategory = "favorites";
+  navbar.querySelector(".selected")?.classList.remove("selected");
+  favoritesTab.classList.add("selected");
+  updateImages("favorites");
+});
+
+const logo = document.querySelector(".navbar-logo");
+logo.addEventListener("click", function () {
+  const selectedCategory = "classic art";
+  updateImages(selectedCategory);
+});
+
+sortByRatingButton.addEventListener("click", () => {
+  const storedImages = JSON.parse(localStorage.getItem(selectedCategory));
+
+  if (storedImages && storedImages.length > 0) {
+    storedImages.sort((a, b) => b.likes - a.likes);
+
+    renderImages(storedImages, imageContainer, selectedCategory);
+  }
+});
+
+sortByTimestampButton.addEventListener("click", () => {
+  const newImage = JSON.parse(localStorage.getItem(selectedCategory));
+
+  function dateToTimestamp(dateString) {
+    return new Date(dateString).getTime();
+  }
+
+  newImage.sort(
+    (a, b) => dateToTimestamp(b.created_at) - dateToTimestamp(a.created_at)
+  );
+
+  renderImages(newImage, imageContainer, selectedCategory);
+});
+
+updateImages(selectedCategory);

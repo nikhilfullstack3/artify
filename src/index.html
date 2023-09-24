@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artify</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="sticky">
+      <img src="logo.png" alt="Artify Logo" class="navbar-logo" />
+
+      <ul class="navbar">
+        <li><a href="#" data-category="classic art">Classic Art</a></li>
+        <li><a href="#" data-category="modern art">Modern Art</a></li>
+        <li><a href="#" data-category="monochrome">Monochrome</a></li>
+        <li><a href="#" data-category="abstract">Abstract</a></li>
+        <li><a href="#" data-category="ancient art">Ancient Art</a></li>
+        <li id="favorites-tab">
+          <a href="#" data-category="favorites" class="favourites">Favorites</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="gallery">
+      <h1 id="category-title">Classic Art</h1>
+      <div class="sorting-buttons">
+        <button id="sort-by-rating">Highest Rated</button>
+        <button id="sort-by-timestamp">Newest</button>
+      </div>
+      <div class="images" id="image-container"></div>
+      <div class="notification"></div>
+    </div>
+
+    <div class="full-image-container" id="full-image-container">
+      <div class="full-image-content">
+        <img id="full-image" src="" alt="" />
+        <p id="image-description"></p>
+        <p id="image-username"></p>
+        <button id="close-button">Close</button>
+      </div>
+    </div>
+
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
