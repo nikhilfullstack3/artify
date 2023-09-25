@@ -123,4 +123,33 @@ sortByTimestampButton.addEventListener("click", () => {
   renderImages(newImage, imageContainer, selectedCategory);
 });
 
+// JavaScript code to handle scrolling
+
+// JavaScript code to handle scrolling
+// JavaScript code to handle scrolling
+const nav = document.querySelector(".sticky");
+let scrollTimeout;
+
+function hideNavBar() {
+  nav.classList.add("hidden");
+}
+
+function showNavBar() {
+  nav.classList.remove("hidden");
+}
+
+window.addEventListener("scroll", function () {
+  // Clear the previous timeout to prevent immediate hiding
+  clearTimeout(scrollTimeout);
+
+  // Hide the navigation bar when scrolling starts
+  hideNavBar();
+
+  // Set a timeout to check if scrolling has stopped
+  scrollTimeout = setTimeout(function () {
+    // If no scrolling has occurred for a certain duration, show the navigation bar
+    showNavBar();
+  }, 500); // Adjust the duration as needed (in milliseconds)
+});
+
 updateImages(selectedCategory);
